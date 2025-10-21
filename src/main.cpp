@@ -1,22 +1,18 @@
 #include <Arduino.h>
-#define LED_PIN 12
 
-void blinkLED(int intervalo);
+// put function declarations here:
+int myFunction(int, int);
 
 void setup() {
-  // Configura o pino do LED como saída
-  pinMode(LED_PIN, OUTPUT);
+  // put your setup code here, to run once:
+  int result = myFunction(2, 3);
 }
 
 void loop() {
-  // Chama a função blinkLED
-  blinkLED(500); // Pisca com intervalo de 500ms
+  // put your main code here, to run repeatedly:
 }
 
-// Função que faz o LED piscar
-void blinkLED(int intervalo) {
-  digitalWrite(LED_PIN, HIGH);  // Acende o LED
-  delay(intervalo);             // Aguarda o intervalo
-  digitalWrite(LED_PIN, LOW);   // Apaga o LED
-  delay(intervalo);             // Aguarda o intervalo
+// put function definitions here:
+int myFunction(int x, int y) {
+  return x + y;
 }
