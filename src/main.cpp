@@ -1,18 +1,23 @@
 #include <Arduino.h>
+// Definindo o pino do buzzer
+#define BUZZER_PIN 17
 
-// put function declarations here:
-int myFunction(int, int);
+void buzzerBeep(int intervalo);
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  // Configura o pino do buzzer como saída
+  pinMode(BUZZER_PIN, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Chama a função buzzerBeep
+  buzzerBeep(1000); // Toca beep com intervalo de 500ms
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+// Função que faz o buzzer tocar
+void buzzerBeep(int intervalo) {
+  digitalWrite(BUZZER_PIN, HIGH);  // Liga o buzzer
+  delay(intervalo);                // Aguarda o intervalo
+  digitalWrite(BUZZER_PIN, LOW);   // Desliga o buzzer
+  delay(intervalo);                // Aguarda o intervalo
 }
