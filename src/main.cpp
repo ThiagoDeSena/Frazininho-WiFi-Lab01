@@ -1,18 +1,29 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+// Definindo os pinos
+#define BUZZER 17
+#define BOTAO 7
+
+void controlarBuzzerComBotao();
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(BOTAO, INPUT_PULLUP);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Chama função que controla buzzer baseado no botão
+  controlarBuzzerComBotao();
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void controlarBuzzerComBotao() {
+  // Lê o estado do botão
+  int estado = digitalRead(BOTAO);
+  
+  // Se botão pressionado (LOW), liga buzzer
+  if (estado == LOW) {
+    digitalWrite(BUZZER, HIGH);  // Liga buzzer
+  } else {
+    digitalWrite(BUZZER, LOW);   // Desliga buzzer
+  }
 }
