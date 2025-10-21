@@ -1,18 +1,45 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+// Definindo os pinos
+#define BUZZER 17
+#define BOTAO 7
+
+// Variável para guardar o estado do buzzer
+bool buzzerLigado = false;
+// Variável para guardar o último estado do botão
+int ultimoEstadoBotao = HIGH;
+
+void controlarBuzzerComBotao();
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(BOTAO, INPUT_PULLUP);
+  
+  // Inicia com buzzer desligado
+  digitalWrite(BUZZER, LOW);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Chama função que controla buzzer baseado no botão
+  controlarBuzzerComBotao();
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void controlarBuzzerComBotao() {
+  // Lê o estado atual do botão
+  int estadoAtualBotao = digitalRead(BOTAO);
+  
+  // Verifica se o botão foi pressionado (mudou de HIGH para LOW)
+  if (estadoAtualBotao == LOW && ultimoEstadoBotao == HIGH) {
+    // Alterna o estado do buzzer
+    buzzerLigado = !buzzerLigado;
+    
+    // Atualiza o buzzer
+    digitalWrite(BUZZER, buzzerLigado ? HIGH : LOW);
+    
+    // Pequena pausa para evitar leituras múltiplas
+    delay(500);
+  }
+  
+  // Atualiza o último estado do botão
+  ultimoEstadoBotao = estadoAtualBotao;
 }
