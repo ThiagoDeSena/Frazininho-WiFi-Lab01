@@ -1,18 +1,37 @@
 #include <Arduino.h>
+#include "DHT.h"
 
-// put function declarations here:
-int myFunction(int, int);
+#define DHTPIN 15
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void lerTemperaturaUmidade();
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(9600);
+  dht.begin();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Chama função que faz tudo
+  lerTemperaturaUmidade();
+  delay(2000);
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+// Função única que mede e mostra os valores
+void lerTemperaturaUmidade() {
+  float umidade = dht.readHumidity();
+  float temperatura = dht.readTemperature();
+  
+  // Se leitura for válida, mostra os valores - (is Not a Number)
+  if (!isnan(umidade) && !isnan(temperatura)) { // isnan() -> 0 (false) se o valor FOR um número válido / 1 (true) se o valor NÃO for um número
+    Serial.print("U: ");
+    Serial.print(umidade);
+    Serial.print("% | T: ");
+    Serial.print(temperatura);
+    Serial.println("C");
+  } else {
+    Serial.println("Erro no sensor!");
+  }
 }
